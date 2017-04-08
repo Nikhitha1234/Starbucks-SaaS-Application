@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var DogSchema   = new Schema({
-    name: String
+    name: String,
     type: String
 });
 
