@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'react-materialize';
 import Carousel from './Carousel';
+import axios from 'axios';
 import { 
   Row, 
   Col, 
@@ -33,11 +34,21 @@ class Main extends Component {
             this.state = {
                isOpen: false,
                qty: '1',
-               name: ''
+               name: 'RegularCofee',
+               milk: 'FullCream',
+               size: 'tall',
+               location: 'ForHere',
+               data: []         
            }
+
           this.openModal = this.openModal.bind(this);
           this.hideModal = this.hideModal.bind(this);
-          this.setQuantity = this.setQuantity.bind(this); 
+          this.setQuantity = this.setQuantity.bind(this);
+          this.setDrinkType = this.setDrinkType.bind(this);
+          this.setMilkType = this.setMilkType.bind(this);
+          this.setSize = this.setSize.bind(this);
+          this.setOrderType = this.setOrderType.bind(this);
+          this.postDataToApi = this.postDataToApi.bind(this);    
       }
 
  
@@ -60,13 +71,59 @@ this.setState({qty: event.target.value});
 
 }
 
+setDrinkType(event){
+event.preventDefault();
+this.setState({name: event.target.value});
 
+}
+
+setMilkType(event){
+
+event.preventDefault();
+this.setState({milk: event.target.value});
+
+}
+
+setSize(event){
+
+event.preventDefault();
+this.setState({size: event.target.value});
+
+}
+
+setOrderType(event){
+
+event.preventDefault();
+this.setState({location: event.target.value});
+
+}
+
+postDataToApi(event){
+  event.preventDefault();
+  var order = { 
+               qty: this.state.qty,
+               name: this.state.name,
+               milk: this.state.milk,
+               size: this.state.size,
+               location: this.state.location,
+          }
+
+  axios.post('http://localhost:3001/api/sanjose/order', order)
+  .then(res => {
+   this.setState({ data: res });
+   console.log(res);
+   })
+   .catch(err => {
+   console.error(err);
+   }); 
+
+}
 
 
 render () {
     return (
-        <div> 
-          <Carousel />
+   <div> 
+  <Carousel />
 <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal}>
   <ModalHeader>
     <ModalClose onClick={this.hideModal}/>
@@ -74,8 +131,8 @@ render () {
   </ModalHeader>
   <ModalBody>
 
-  <Form horizontal>
-      <h3 bsStyle="success">Store: San Jose</h3>
+  <Form horizontal >
+      <h3>Store: San Jose</h3>
   <FormGroup controlId="formControlsSelect">
       <h5 >Number of Items</h5>
       <FormControl componentClass="select" placeholder="select" onChange={this.setQuantity} value={this.state.qty}>
@@ -90,33 +147,36 @@ render () {
         <option value="9">9</option>
         <option value="10">10</option>
       </FormControl>
-      <h5 >HotDrinks</h5>
-      <FormControl componentClass="select" placeholder="select">
+      <h5 >Hot / Cold Drinks</h5>
+      <FormControl componentClass="select" placeholder="select" onChange={this.setDrinkType} value={this.state.name}>
         <option value="RegularCoffee">Regular Coffee</option>
         <option value="Decaf">Decaf</option>
         <option value="Americano">Americano</option>
         <option value="Cappccuino">Cappccuino</option>
         <option value="WhiteMocha">White Mocha</option>
         <option value="CafeLatte">CafeLatte</option>
-      </FormControl>
-      <h5 >Iced Drinks</h5>
-      <FormControl componentClass="select" placeholder="select">
         <option value="IcedCaffeAmericano">Iced Caffe Americano</option>
         <option value="IcedCaffeLatte">Iced Caffe Latte</option>
         <option value="IcedCaffeMocha">Iced Caffe Mocha</option>
         <option value="Iced Caramel Machiato">Iced Caramel Machiato</option>
         <option value="IcedVanillaLatte">Iced Vanilla Latte</option>
       </FormControl>
-        <h5 >Milk Type (Does not apply for Iced Drknks)</h5>
-      <FormControl componentClass="select" placeholder="select">
-        <option value="Full Cream">Full Cream</option>
-        <option value="Half-n-Half">Half-n-Half</option>
+      
+      <h5>Milk Type (Does not apply for Iced Drinks)</h5>
+      <FormControl componentClass="select" placeholder="select" onChange={this.setMilkType} value={this.state.milk}>
+        <option value="FullCream">Full Cream</option>
+        <option value="HalfNHalf">Half-n-Half</option>
       </FormControl>
-      <h5 >Size</h5>
-      <FormControl componentClass="select" placeholder="select">
+      <h5>Select Size</h5>
+      <FormControl componentClass="select" placeholder="select" onChange={this.setSize} value={this.state.size}>
         <option value="tall">tall</option>
         <option value="Grande">Grande</option>
         <option value="Venti">Venti</option>
+      </FormControl>
+       <h5>Order Type</h5>
+       <FormControl componentClass="select" placeholder="select" onChange={this.setOrderType} value={this.state.location}>
+        <option value="ForeHere">For Here</option>
+        <option value="ToGo">To Go</option>
       </FormControl>
   </FormGroup>
 </Form>
@@ -126,10 +186,11 @@ render () {
     <button className='btn btn-default' onClick={this.hideModal}>
       Cancel
     </button>
-    <button className='btn btn-primary'>
+    <button className='btn btn-primary' onClick={this.postDataToApi}>
       Place Order
     </button>
   </ModalFooter>
+
 </Modal>
            
 <Grid>

@@ -43,7 +43,35 @@ router.get('/', function(req, res) {
  res.json({ message: 'API Initialized!'});
 });
 
+//adding the /sanjose/order route to our /api router
+router.route('/sanjose/order')
+ //retrieve all orders from the database
+ .get(function(req, res) {
+ //looks at our OrdersSchema
+ Order.find(function(err, orders) {
+    if (err)
+     res.send(err);
+    //responds with a json object of our database orders.
+    res.json(orders)
+   });
+   
+ })
 
+ //post new comment to the database
+ .post(function(req, res) {
+ var order = new Order();
+ //body parser lets us use the req.body
+    order.qty = req.body.qty;
+    order.name = req.body.name;
+    order.milk = req.body.milk;
+    order.size = req.body.size;
+    order.location = req.body.location;
+    order.save(function(err) {
+     if (err)
+    res.send(err);
+    res.json({ message: 'Order is successfully placed!' });
+   });
+ });
 
 
 
