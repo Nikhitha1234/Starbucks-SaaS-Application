@@ -116,7 +116,7 @@ postDataToApi(event){
    .catch(err => {
    console.error(err);
    }); 
-
+  this.hideModal();
 }
 
 
