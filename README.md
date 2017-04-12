@@ -15,7 +15,7 @@
 
 #Instructions <br />
 1. npm install <br />
-   npm install cocurrently <br />
+   npm install --save cocurrently <br />
 2. npm run start-dev <br />
 3. start local mongoDB server <br />
 4. use the app to order at sanjose <br />
