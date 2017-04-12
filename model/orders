@@ -1,0 +1,38 @@
+'use strict';
+
+//import dependency
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+//create new instance of the mongoose.schema. the schema takes an 
+//object that shows the shape of your database entries.
+
+var OrdersSchema = new Schema({
+
+ location: String,
+
+ links: {
+    payment: {type: String, default: ''},
+    order: {type: String, default: ''}
+ },
+
+ status: String,
+
+ message: String,
+
+ items: [
+  
+   { 
+      qty: Number, 
+      name: String,
+      milk: String,
+      size: String
+   }
+
+ ]
+
+
+});
+
+//export our module to use in server.js
+module.exports = mongoose.model('orders', OrdersSchema);

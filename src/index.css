@@ -20,7 +20,6 @@ body {
 	background-color: #007043 !important;
 }
 
-
 .container-Slider {
   margin: 0 auto;
   padding: 40px;
@@ -40,20 +39,4 @@ body {
   width: 78%;
 }
 
-ul
-{
-margin: 0;
-padding: 0;
-list-style-type: none;
-}
-
-ul li{
-  display: inline;
-}
-
-ul li a
-{
-text-decoration: none;
-padding: .2em 1em;
-}
 
