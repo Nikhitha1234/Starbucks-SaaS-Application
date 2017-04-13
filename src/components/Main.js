@@ -108,11 +108,15 @@ postDataToApi(event){
                location: this.state.location,
           }
 
-  axios.post('http://localhost:3001/api/sanjose/order', order)
+  axios.post('http://localhost:8080/api/order', order)
+
   .then(res => {
+     //alert("hi")
    this.setState({ data: res });
-   console.log(res);
+
+   alert(res);
    })
+
    .catch(err => {
    console.error(err);
    }); 
