@@ -69,15 +69,25 @@ router.route('/sanjose/order')
     order.milk = req.body.milk;
     order.size = req.body.size;
     order.location = req.body.location;
-    
+    var place = req.body.place;
+    var host;
 
-
+    switch(place){
+        case 'SanJose': host = "strbks.com";
+        break; 
+        case 'SanFrancisco': host= "strbksdishant.com";
+        break;
+        case 'PaloAlto'    : host = "strbksnikhita.com";
+        break;
+    }
+   
+   console.log(host);
 
 // Set the headers
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
-    'Host': 'strbks.com'  
+    'Host': host  
 }
 
 // Configure the request
@@ -93,13 +103,14 @@ var options = {
 request(options, function (error, response, body) {
     if (!error) {
         // Print out the response body
-         console.log(response.body);
+        // console.log(response.body);
+        res.send(response.body);
     }
    
 
 })
 
-res.send(order);
+
 
 
 

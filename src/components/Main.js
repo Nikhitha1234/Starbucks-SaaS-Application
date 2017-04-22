@@ -118,14 +118,15 @@ postDataToApi(event){
                name: this.state.name,
                milk: this.state.milk,
                size: this.state.size,
-               location: this.state.location
+               location: this.state.location,
+               place: this.state.place
               }
      
 
  axios.post('http://localhost:3001/api/sanjose/order',order)
   .then(res => {
    this.setState({ data: res });
-   console.log(this.data);
+   console.log(this.data.body);
    })
    .catch(err => {
    console.error(err);
