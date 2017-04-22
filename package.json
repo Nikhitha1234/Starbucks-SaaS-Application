@@ -7,15 +7,20 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "foreman": "^2.0.0",
+    "jquery": "^3.2.1",
     "marked": "^0.3.6",
     "mongoose": "^4.9.4",
     "nodemon": "^1.11.0",
     "react": "^15.5.3",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.3",
+    "react-http-request": "^1.0.3",
     "react-materialize": "^0.18.1",
     "react-modal-bootstrap": "^1.1.1",
-    "react-slick": "^0.14.7"
+    "react-slick": "^0.14.7",
+    "request": "^2.81.0",
+    "whatwg-fetch": "^2.0.3",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import 'react-materialize';
 import Carousel from './Carousel';
 import axios from 'axios';
+import $ from 'jquery'; 
 import { 
   Row, 
   Col, 
@@ -38,10 +39,10 @@ class Main extends Component {
                milk: 'FullCream',
                size: 'tall',
                location: 'ForHere',
-               data: [], 
-               location : ''
+               data: []   ,
+               count: 0
+            //   let count: 0      
            }
-         
           this.openModal = this.openModal.bind(this);
           this.hideModal = this.hideModal.bind(this);
           this.setQuantity = this.setQuantity.bind(this);
@@ -49,11 +50,9 @@ class Main extends Component {
           this.setMilkType = this.setMilkType.bind(this);
           this.setSize = this.setSize.bind(this);
           this.setOrderType = this.setOrderType.bind(this);
-          this.postDataToApi = this.postDataToApi.bind(this);    
-          this.setLocation = this.setLocation.bind(this);
-      //
-          // this.getDataFromApi(event) = this.getDataFromApi.bind(this);
-    }
+          this.postDataToApi = this.postDataToApi.bind(this);
+            
+      }
 
  
 openModal = () => {
@@ -110,61 +109,26 @@ postDataToApi(event){
                milk: this.state.milk,
                size: this.state.size,
                location: this.state.location,
-          }
+              }
+    
+  
 
-  axios.post('http://54.153.32.5:8080/api/'+this.state.location+'/order', order)
-
+ axios.post('http://localhost:3001/api/sanjose/order',order)
   .then(res => {
-     alert("hi")
    this.setState({ data: res });
-     
-   //alert(res);
+   //console.log(res);
+   //alert('hi');
+    //render() { return (<div> <h1>san jose</h1></div>)};
+         this.setState({count : -999}); 
    })
-
    .catch(err => {
-   //console.error(err);
-   alert(err);
+   console.error(err);
    }); 
 
-
-
-  this.hideModal();
-}
-getDataFromApi(event)
-{
-  event.preventDefault();
-   axios.get('http://54.219.156.219:8080/api/{$loc}/order')
-
-  .then(res => {
-   alert("hi");
-
-   this.setState({ data: res });
-
-     
-   //alert(res);
-   })
-
-   .catch(err => {
-   //console.error(err);
-  // alert(err);
-   }); 
-
-
-
-  this.hideModal();  
-
-}
-setLocation(event){
-   event.preventDefault();
-   //this.setState({ loc: res });
-   let loc=document.getElementById('SJ');
-   console.log(loc.value);
-   this.setState({location: loc.value});
-   this.openModal();
+  this.hideModal();   
 }
 
-
-render () {
+render () { if (count){
     return (
    <div> 
   <Carousel />
@@ -244,7 +208,7 @@ render () {
         <h3>Order At San jose</h3>
         <p>10% Disctount for SJSU students</p>
         <p>
-          <Button bsStyle="primary" id="SJ" value="sanJose" onClick={this.setLocation} >Order</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.openModal}>Order</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -253,7 +217,7 @@ render () {
         <h3>Order At San Francisco</h3>
         <p>Description</p>
         <p>
-          <Button bsStyle="primary" onClick={this.openModal}>Order</Button>&nbsp;
+          <Button bsStyle="primary">Order</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -263,6 +227,7 @@ render () {
         <p>Description</p>
         <p>
           <Button bsStyle="primary">Order</Button>&nbsp;
+           
         </p>
       </Thumbnail>
     </Col>
@@ -271,6 +236,6 @@ render () {
            </div>
         );
     }
-};
+}; }
 
 export default Main;
