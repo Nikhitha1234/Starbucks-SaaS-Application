@@ -77,7 +77,7 @@ router.route('/sanjose/order')
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
-    'Host': 'strbksdishant.com'
+    'Host': 'strbks.com'
 }
 
 // Configure the request
@@ -93,9 +93,9 @@ var options = {
 request(options, function (error, response, body) {
     if (!error) {
         // Print out the response body
-         //console.log(body);
+         console.log(response.body);
     }
-    console.log(response.body)
+   
 
 })
 
