@@ -123,7 +123,7 @@ postDataToApi(event){
               }
      
 
- axios.post('http://localhost:3001/api/sanjose/order',order)
+ axios.post('http://localhost:3001/api/order',order)
   .then(res => {
    this.setState({ data: res });
    console.log(this.data.body);

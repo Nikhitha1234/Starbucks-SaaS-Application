@@ -45,8 +45,8 @@ router.get('/', function(req, res) {
  res.json({ message: 'API Initialized!'});
 });
 
-//adding the /sanjose/order route to our /api router
-router.route('/sanjose/order')
+//adding the /order route to our /api router
+router.route('/order')
  //retrieve all orders from the database
  .get(function(req, res) {
  //looks at our OrdersSchema
