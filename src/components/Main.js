@@ -40,7 +40,7 @@ class Main extends Component {
                milk: 'FullCream',
                size: 'tall',
                location: 'ForHere',
-               data: [],
+               data: '',
                orderButton: false,
                orderDetailsButton: false,
                place: ''
@@ -125,8 +125,9 @@ postDataToApi(event){
 
  axios.post('http://localhost:3001/api/order',order)
   .then(res => {
-   this.setState({ data: res });
-   console.log(this.data.body);
+  
+  this.setState({ data: res.data.body});
+   console.log(res.data.body);
    })
    .catch(err => {
    console.error(err);

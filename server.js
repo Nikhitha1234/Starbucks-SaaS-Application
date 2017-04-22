@@ -104,31 +104,14 @@ request(options, function (error, response, body) {
     if (!error) {
         // Print out the response body
         // console.log(response.body);
-        res.send(response.body);
+       var body = JSON.stringify(response);
+       console.log(body);
+       res.send(body);
     }
    
 
 })
 
-
-
-
-
-    //order.save(function(err) {
-    //if (err)
-    //res.send(err);
-    
-    //res.json({ message: 'Order is successfully placed!' });
-  //});
-    //xhr.open('POST', 'http://54.193.21.4:8000', true);
-    //xhr.setRequestHeader('Content-Type','application/json');
-    //xhr.setRequestHeader('Host', 'strbks.com');
-    //xhr.send(JSON.stringify(order));
-    //console.log("Placed!");
-    //request.open('POST', 'http://54.193.21.4:8000', true);
-    //xmlhttp.setRequestHeader("Host", "strbks.com");
-    //xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    //request.send(JSON.stringify(data));
     
  });
 
