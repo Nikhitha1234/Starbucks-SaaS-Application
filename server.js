@@ -77,7 +77,7 @@ router.route('/sanjose/order')
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
-    'Host': 'strbks.com'
+    'Host': 'strbks.com'  
 }
 
 // Configure the request

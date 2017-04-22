@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import 'react-materialize';
 import Carousel from './Carousel';
 import axios from 'axios';
-import $ from 'jquery'; 
+import $ from 'jquery';
+import '../App.css'; 
 import { 
   Row, 
   Col, 
@@ -39,7 +40,10 @@ class Main extends Component {
                milk: 'FullCream',
                size: 'tall',
                location: 'ForHere',
-               data: []   ,
+               data: [],
+               orderButton: false,
+               orderDetailsButton: false,
+               place: ''
             
            }
           this.openModal = this.openModal.bind(this);
@@ -50,7 +54,7 @@ class Main extends Component {
           this.setSize = this.setSize.bind(this);
           this.setOrderType = this.setOrderType.bind(this);
           this.postDataToApi = this.postDataToApi.bind(this);
-            
+          this.setLocation = this.setLocation.bind(this);  
       }
 
  
@@ -65,6 +69,7 @@ hideModal = () => {
     isOpen: false,
     
   });
+  this.setState({  place: ''});
 }
 
 setQuantity(event){
@@ -93,6 +98,12 @@ this.setState({size: event.target.value});
 
 }
 
+setLocation(event){
+event.preventDefault();
+this.setState({  place: event.target.value});
+this.openModal();
+}
+
 setOrderType(event){
 
 event.preventDefault();
@@ -107,10 +118,9 @@ postDataToApi(event){
                name: this.state.name,
                milk: this.state.milk,
                size: this.state.size,
-               location: this.state.location,
+               location: this.state.location
               }
-    
-  
+     
 
  axios.post('http://localhost:3001/api/sanjose/order',order)
   .then(res => {
@@ -135,8 +145,8 @@ render () {
   </ModalHeader>
   <ModalBody>
 
-  <Form horizontal >
-      <h3>Store: San Jose</h3>
+      <Form horizontal >
+      <h3>Store:{this.state.place}</h3>
   <FormGroup controlId="formControlsSelect">
       <h5 >Number of Items</h5>
       <FormControl componentClass="select" placeholder="select" onChange={this.setQuantity} value={this.state.qty}>
@@ -184,7 +194,7 @@ render () {
       </FormControl>
   </FormGroup>
 </Form>
-
+ 
   </ModalBody>
   <ModalFooter>
     <button className='btn btn-default' onClick={this.hideModal}>
@@ -204,7 +214,8 @@ render () {
         <h3>Order At San jose</h3>
         <p>10% Disctount for SJSU students</p>
         <p>
-          <Button bsStyle="primary" onClick={this.openModal}>Order</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanJose" >Order</Button>&nbsp;
+          <Button bsStyle="info" >Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -213,7 +224,8 @@ render () {
         <h3>Order At San Francisco</h3>
         <p>Description</p>
         <p>
-          <Button bsStyle="primary">Order</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Order</Button>&nbsp;
+          <Button bsStyle="info">Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -222,8 +234,8 @@ render () {
         <h3>Order At Palo Alto</h3>
         <p>Description</p>
         <p>
-          <Button bsStyle="primary">Order</Button>&nbsp;
-           
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Order</Button>&nbsp;
+          <Button bsStyle="info">Order Details</Button>&nbsp; 
         </p>
       </Thumbnail>
     </Col>
