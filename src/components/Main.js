@@ -40,8 +40,7 @@ class Main extends Component {
                size: 'tall',
                location: 'ForHere',
                data: []   ,
-               count: 0
-            //   let count: 0      
+            
            }
           this.openModal = this.openModal.bind(this);
           this.hideModal = this.hideModal.bind(this);
@@ -116,10 +115,6 @@ postDataToApi(event){
  axios.post('http://localhost:3001/api/sanjose/order',order)
   .then(res => {
    this.setState({ data: res });
-   //console.log(res);
-   //alert('hi');
-    //render() { return (<div> <h1>san jose</h1></div>)};
-         this.setState({count : -999}); 
    })
    .catch(err => {
    console.error(err);
@@ -128,7 +123,7 @@ postDataToApi(event){
   this.hideModal();   
 }
 
-render () { if (count){
+render () { 
     return (
    <div> 
   <Carousel />
@@ -236,6 +231,6 @@ render () { if (count){
            </div>
         );
     }
-}; }
+}; 
 
 export default Main;

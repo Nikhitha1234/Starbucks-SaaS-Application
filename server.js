@@ -85,7 +85,7 @@ var options = {
     url: 'http://54.193.21.4:8000',
     method: 'POST',
     headers: headers,
-    form: {'milk': req.body.milk, 'location': req.body.location ,'qty':req.body.qty,'name': req.body.name
+    form: {'qty':req.body.qty,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
      }
 }
 
