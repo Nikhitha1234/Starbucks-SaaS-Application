@@ -3,7 +3,8 @@ import 'react-materialize';
 import Carousel from './Carousel';
 import axios from 'axios';
 import $ from 'jquery';
-import '../App.css'; 
+import '../App.css';
+
 import { 
   Row, 
   Col, 
@@ -16,7 +17,9 @@ import {
   FormControl,
   FormGroup,
   ControlLabel,
-  Form
+  Form,
+  Panel,
+  ListGroupItem
 } from 'react-bootstrap';
 
 import {
@@ -42,7 +45,6 @@ class Main extends Component {
                location: 'ForHere',
                data: '',
                orderButton: false,
-               orderDetailsButton: false,
                place: ''
             
            }
@@ -54,7 +56,8 @@ class Main extends Component {
           this.setSize = this.setSize.bind(this);
           this.setOrderType = this.setOrderType.bind(this);
           this.postDataToApi = this.postDataToApi.bind(this);
-          this.setLocation = this.setLocation.bind(this);  
+          this.setLocation = this.setLocation.bind(this);
+          this.getOrders = this.getOrders.bind(this);  
       }
 
  
@@ -70,6 +73,8 @@ hideModal = () => {
     
   });
   this.setState({  place: ''});
+  this.setState({  orderButton: false});
+
 }
 
 setQuantity(event){
@@ -100,6 +105,7 @@ this.setState({size: event.target.value});
 
 setLocation(event){
 event.preventDefault();
+this.setState({  orderButton: true});
 this.setState({  place: event.target.value});
 this.openModal();
 }
@@ -113,6 +119,7 @@ this.setState({location: event.target.value});
 
 postDataToApi(event){
   event.preventDefault();
+ 
   var order = { 
                qty: this.state.qty,
                name: this.state.name,
@@ -125,7 +132,6 @@ postDataToApi(event){
 
  axios.post('http://localhost:3001/api/order',order)
   .then(res => {
-  
   this.setState({ data: res.data.body});
    console.log(res.data.body);
    })
@@ -133,7 +139,27 @@ postDataToApi(event){
    console.error(err);
    }); 
 
-  this.hideModal();   
+  this.hideModal();  
+
+}
+
+getOrders(event) {
+event.preventDefault();
+this.setState({  orderButton: false});
+this.setState({  place: event.target.value});
+this.openModal();
+
+axios.get('http://localhost:3001/api/order')
+
+  .then(res => {
+  this.setState({ data: res.data.body});
+
+   console.log(res.data.body);
+   })
+   .catch(err => {
+   console.error(err);
+   }); 
+
 }
 
 render () { 
@@ -143,11 +169,13 @@ render () {
 <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal}>
   <ModalHeader>
     <ModalClose onClick={this.hideModal}/>
-    <ModalTitle>Place Your Order</ModalTitle>
+    {this.state.orderButton ?
+    <ModalTitle>Place Your Order</ModalTitle> : <ModalTitle> <h3>Location: {this.state.place}</h3></ModalTitle> }
   </ModalHeader>
   <ModalBody>
 
-      <Form horizontal >
+      {this.state.orderButton ?
+   <Form horizontal>
       <h3>Store:{this.state.place}</h3>
   <FormGroup controlId="formControlsSelect">
       <h5 >Number of Items</h5>
@@ -196,15 +224,81 @@ render () {
       </FormControl>
   </FormGroup>
 </Form>
- 
+  :
+    <Panel header="Order Details" bsStyle="primary">
+      { !(this.state.data) ? <div>You have no Order right now</div>
+       :
+       <div>
+         <ListGroupItem>
+         <Row className="show-grid">
+          <Col sm={6} md={3}>Item</Col>
+          <Col sm={6} md={3}>Description</Col>
+          <Col sm={6} md={3}>location</Col>
+          <Col sm={6} md={3}>Price</Col>
+        </Row>
+    </ListGroupItem>
+      <ListGroupItem>
+       <Row className="show-grid">
+          <Col sm={6} md={3}>{this.state.name}</Col>
+          <Col sm={6} md={3}>{this.state.qty}</Col>
+          <Col sm={6} md={3}>{this.state.location}</Col>
+          <Col sm={6} md={3}>$5</Col>
+        </Row>
+      </ListGroupItem>
+      <ListGroupItem>
+       <Row className="show-grid">
+          <Col sm={6} md={3}>Subtotal</Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}>$5</Col>
+        </Row>
+      </ListGroupItem>
+      <ListGroupItem>
+       <Row className="show-grid">
+          <Col sm={6} md={3}>Tax</Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}>$0.47</Col>
+        </Row>
+      </ListGroupItem>
+       <ListGroupItem>
+       <Row className="show-grid">
+          <Col sm={6} md={3}>Total</Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}></Col>
+          <Col sm={6} md={3}>$5.47</Col>
+        </Row>
+      </ListGroupItem>
+       </div>
+
+      }
+  
+    </Panel>
+  }
+    
   </ModalBody>
   <ModalFooter>
-    <button className='btn btn-default' onClick={this.hideModal}>
+   {this.state.orderButton ? 
+    
+    <div>
+    <Button className='btn btn-default' onClick={this.hideModal}>
       Cancel
-    </button>
-    <button className='btn btn-primary' onClick={this.postDataToApi}>
+    </Button>
+    <Button className='btn btn-primary' onClick={this.postDataToApi}>
       Place Order
-    </button>
+    </Button>
+     </div>
+    :
+    <div>
+    <Button className='btn btn-default' onClick={this.hideModal}>
+      Email me receipt
+    </Button>
+    
+    <Button className='btn btn-default' onClick={this.hideModal}>
+      OK
+    </Button>
+    </div>
+   } 
   </ModalFooter>
 
 </Modal>
@@ -212,12 +306,12 @@ render () {
 <Grid>
     <Row>
     <Col xs={6} md={4}>
-      <Thumbnail src="https://s3-us-west-1.amazonaws.com/cmpe281starbuckscarouselimages/image3.JPG" alt="242x200">
+      <Thumbnail src="https://s3-us-west-1.amazonaws.com/cmpe281starbuckscarouselimages/image3.JPG" alt="242x200">         
         <h3>Order At San jose</h3>
         <p>10% Disctount for SJSU students</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanJose" >Order</Button>&nbsp;
-          <Button bsStyle="info" >Order Details</Button>&nbsp;
+          <Button bsStyle="info" onClick={this.getOrders} value="SanJose" >Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>

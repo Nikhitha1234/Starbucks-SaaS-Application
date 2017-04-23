@@ -19,8 +19,6 @@ var port = process.env.API_PORT || 3001;
 
 
 
-
-
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,15 +45,37 @@ router.get('/', function(req, res) {
 
 //adding the /order route to our /api router
 router.route('/order')
- //retrieve all orders from the database
+
+//retrieve all orders from the database
  .get(function(req, res) {
- //looks at our OrdersSchema
- Order.find(function(err, orders) {
-    if (err)
-     res.send(err);
-    //responds with a json object of our database orders.
-    res.json(orders)
-   });
+  
+    // Set the headers
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/json',
+    'Host': 'strbks.com'  
+}
+
+// Configure the request
+var options = {
+    url: 'http://54.193.21.4:8000',
+    method: 'GET',
+    headers: headers
+ }   
+
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error) {
+        // Print out the response body
+        // console.log(response.body);
+       var body = JSON.stringify(response);
+       console.log(body);
+       res.send(body);
+    }
+   
+})
+
 
  })
 
@@ -109,7 +129,6 @@ request(options, function (error, response, body) {
        res.send(body);
     }
    
-
 })
 
     
