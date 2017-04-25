@@ -65,19 +65,19 @@ router.route('/order')
 
 
 // Start the request
-request(options, function (error, response, body) {
-    if (!error) {
-        // Print out the response body
-        // console.log(response.body);
-       var body = JSON.stringify(response);
-       console.log(body);
-       res.send(body);
-    }
+// request(options, function (error, response, body) {
+//     if (!error) {
+//         // Print out the response body
+//         // console.log(response.body);
+//        var body = JSON.stringify(response);
+//        console.log(body);
+//        res.send(body);
+//     }
    
-})
+// })
 
 
- })
+ 
 
  //post new comment to the database
  .post(function(req, res) {
@@ -95,7 +95,7 @@ request(options, function (error, response, body) {
     switch(place){
         case 'SanJose': host = "strbks.com";
         break; 
-        case 'SanFrancisco': host= "strbksDishant.com";
+        case 'SanFrancisco': host= "strbksdishant.com";
         break;
         case 'PaloAlto'    : host = "strbksnikhita.com";
         break;
@@ -113,7 +113,7 @@ var headers = {
 //'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://34.210.7.218:8000' ,
+    url: 'http://54.193.21.4:8000' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
