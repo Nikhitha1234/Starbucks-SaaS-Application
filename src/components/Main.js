@@ -321,7 +321,7 @@ render () {
         <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Order</Button>&nbsp;
-          <Button bsStyle="info">Order Details</Button>&nbsp;
+          <Button bsStyle="info "  onClick={this.getOrders} value="SanJose">Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -331,7 +331,7 @@ render () {
         <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Order</Button>&nbsp;
-          <Button bsStyle="info">Order Details</Button>&nbsp; 
+          <Button bsStyle="info"  onClick={this.getOrders} value="SanJose>Order Details</Button>&nbsp; 
         </p>
       </Thumbnail>
     </Col>

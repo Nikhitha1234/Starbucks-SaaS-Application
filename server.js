@@ -50,6 +50,16 @@ router.route('/order')
  .get(function(req, res) {
   
     // Set the headers
+
+    switch(place){
+        case 'SanJose': host = "strbks.com";
+        break; 
+        case 'SanFrancisco': host= "strbksdishant.com";
+        break;
+        case 'PaloAlto'    : host = "strbksnikhita.com";
+        break;
+    }
+   
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
@@ -60,7 +70,8 @@ var headers = {
 var options = {
     url: 'http://54.193.21.4:8000',
     method: 'GET',
-    headers: headers
+    headers: headers,
+    form : 'objecct_id': order.id  
  }   
 
 
