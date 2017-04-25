@@ -19,7 +19,8 @@ import {
   ControlLabel,
   Form,
   Panel,
-  ListGroupItem
+  ListGroupItem,
+  FieldGroup
 } from 'react-bootstrap';
 
 import {
@@ -45,7 +46,8 @@ class Main extends Component {
                location: 'ForHere',
                data: '',
                orderButton: false,
-               place: ''
+               place: '',
+               email: ''
             
            }
           this.openModal = this.openModal.bind(this);
@@ -57,6 +59,7 @@ class Main extends Component {
           this.setOrderType = this.setOrderType.bind(this);
           this.postDataToApi = this.postDataToApi.bind(this);
           this.setLocation = this.setLocation.bind(this);
+          this.setEmailAddress = this.setEmailAddress.bind(this);
           this.getOrders = this.getOrders.bind(this);  
       }
 
@@ -117,6 +120,13 @@ this.setState({location: event.target.value});
 
 }
 
+setEmailAddress(event){
+
+event.preventDefault();
+this.setState({email: event.target.value});
+
+}
+
 postDataToApi(event){
   event.preventDefault();
  
@@ -126,7 +136,8 @@ postDataToApi(event){
                milk: this.state.milk,
                size: this.state.size,
                location: this.state.location,
-               place: this.state.place
+               place: this.state.place,
+               email: this.state.email
               }
      
 
@@ -177,7 +188,9 @@ render () {
       {this.state.orderButton ?
    <Form horizontal>
       <h3>Store:{this.state.place}</h3>
+
   <FormGroup controlId="formControlsSelect">
+
       <h5 >Number of Items</h5>
       <FormControl componentClass="select" placeholder="select" onChange={this.setQuantity} value={this.state.qty}>
         <option value="1">1</option>
@@ -222,7 +235,13 @@ render () {
         <option value="ForeHere">For Here</option>
         <option value="ToGo">To Go</option>
       </FormControl>
+      <h4>Type Your Email for the receipt</h4>
+      <Col xs={12} >
+        <FormControl type="email" placeholder="e.g john@doe@example.com"  onChange={this.setEmailAddress} />
+      </Col>
+
   </FormGroup>
+    
 </Form>
   :
     <Panel header="Order Details" bsStyle="primary">
@@ -290,9 +309,6 @@ render () {
      </div>
     :
     <div>
-    <Button className='btn btn-default' onClick={this.hideModal}>
-      Email me receipt
-    </Button>
     
     <Button className='btn btn-default' onClick={this.hideModal}>
       OK
@@ -321,7 +337,7 @@ render () {
         <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Order</Button>&nbsp;
-          <Button bsStyle="info "  onClick={this.getOrders} value="SanJose">Order Details</Button>&nbsp;
+          <Button bsStyle="info" onClick={this.getOrders} value="San Francisco" >Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
@@ -331,7 +347,7 @@ render () {
         <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Order</Button>&nbsp;
-          <Button bsStyle="info"  onClick={this.getOrders} value="SanJose>Order Details</Button>&nbsp; 
+          <Button bsStyle="info" onClick={this.getOrders} value="Palo Alto" >Order Details</Button>&nbsp;
         </p>
       </Thumbnail>
     </Col>
