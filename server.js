@@ -47,32 +47,21 @@ router.get('/', function(req, res) {
 router.route('/order')
 
 //retrieve all orders from the database
- .get(function(req, res) {
+//  .get(function(req, res) {
   
-    // Set the headers
+//     // Set the headers
+// var headers = {
+//     'User-Agent':       'Super Agent/0.0.1',
+//     'Content-Type':     'application/json',
+//     'Host': 'strbks.com'  
+// }
 
-    switch(place){
-        case 'SanJose': host = "strbks.com";
-        break; 
-        case 'SanFrancisco': host= "strbksdishant.com";
-        break;
-        case 'PaloAlto'    : host = "strbksnikhita.com";
-        break;
-    }
-   
-var headers = {
-    'User-Agent':       'Super Agent/0.0.1',
-    'Content-Type':     'application/json',
-    'Host': 'strbks.com'  
-}
-
-// Configure the request
-var options = {
-    url: 'http://54.193.21.4:8000',
-    method: 'GET',
-    headers: headers,
-    form : 'objecct_id': order.id  
- }   
+// // Configure the request
+// var options = {
+//     url: 'http://54.193.21.4:8000',
+//     method: 'GET',
+//     headers: headers
+//  }   
 
 
 // Start the request
@@ -106,13 +95,13 @@ request(options, function (error, response, body) {
     switch(place){
         case 'SanJose': host = "strbks.com";
         break; 
-        case 'SanFrancisco': host= "strbksdishant.com";
+        case 'SanFrancisco': host= "strbksDishant.com";
         break;
         case 'PaloAlto'    : host = "strbksnikhita.com";
         break;
     }
    
-   console.log(host);
+   //console.log(host);
 
 // Set the headers
 var headers = {
@@ -120,14 +109,15 @@ var headers = {
     'Content-Type':     'application/json',
     'Host': host  
 }
-
+//'http://34.210.7.218:8000'
+//'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://54.193.21.4:8000',
+    url: 'http://34.210.7.218:8000' ,
     method: 'POST',
     headers: headers,
-    form: {'qty':req.body.qty,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
-     }
+    body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
+     })
 }
 
 // Start the request
