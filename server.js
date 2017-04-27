@@ -87,7 +87,9 @@ var headers = {
 //'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://54.193.21.4/:8000' ,
+
+    //url: 'http://54.193.21.4/:8000' ,
+    url: 'http://54.241.1.103:8080/api/sanJose/order/' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
@@ -149,6 +151,9 @@ request(options, function (error, response, body) {
 })
 
 //retrieve all orders from the database
+
+//retrieve all orders from the database
+
 .put(function(req, res) {
 
  console.log("I am in put");
@@ -163,6 +168,7 @@ request(options, function (error, response, body) {
  // Configure the request
  // console.log(req.body);
  var options = {
+
      //url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
      url:'http://54.144.207.3:5000/api/PaloAlto/order/'+req.params.order_id,
      method: 'PUT',
@@ -173,12 +179,24 @@ request(options, function (error, response, body) {
 
 
 
+
+     url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+     method: 'PUT',
+     headers: headers
+  }  
+
+
+
  //Start the request
  request(options, function (error, response, body) {
      if (!error) {
          // Print out the response body
          // console.log(response.body);
+
         var body = JSON.stringify(response);
+
+      //  var body = JSON.stringify(response);
+
         //console.log(body);
         res.send(body);
 
