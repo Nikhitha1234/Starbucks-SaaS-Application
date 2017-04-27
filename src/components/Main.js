@@ -47,7 +47,8 @@ class Main extends Component {
                objectId: '',
                orderButton: false,
                place: '',
-               email: ''
+               email: '',
+               editButton: false
             
            }
           this.openModal = this.openModal.bind(this);
@@ -62,6 +63,8 @@ class Main extends Component {
           this.setEmailAddress = this.setEmailAddress.bind(this);
           this.getOrders = this.getOrders.bind(this);  
           this.getDataFromApi = this.getDataFromApi.bind(this);
+          this.updateDataFromApi = this.updateDataFromApi.bind(this);
+          this.editOrder = this.editOrder.bind(this);
       }
 
  
@@ -152,7 +155,8 @@ postDataToApi(event){
    console.error(err);
    }); 
 
-  this.hideModal();  
+ this.setState({orderButton: false});
+ this.setState({ editButton: false });
 
 }
 getDataFromApi(event){
@@ -181,6 +185,35 @@ axios.get('http://localhost:3001/api/order/'+this.state.objectId)
 
 }
 
+updateDataFromApi(event){
+
+ //event.preventDefault();
+ console.log("Inside put");
+ console.log('http://localhost:3001/api/order/'+this.state.objectId);
+axios.put('http://localhost:3001/api/order/'+this.state.objectId)
+
+ .then(res => {
+   //console.log(res.data.qty);
+  //this.setState({ data: res.data.body});
+  this.setState({ qty: res.data.qty});
+  this.setState({ name: res.data.name});
+ this.setState({ milk: res.data.milk});
+ this.setState({ size: res.data.size});
+ this.setState({ location: res.data.location});
+ this.setState({ place: res.data.place});
+       
+   console.log ('Response from put request');
+   console.log(this.state.qty);
+  })
+  .catch(err => {
+  console.error(err);
+  });
+
+ this.setState({orderButton: false});
+ this.setState({ editButton: false });
+
+}
+
 getOrders(event) {
 event.preventDefault();
 this.getDataFromApi();
@@ -189,8 +222,15 @@ this.setState({  place: event.target.value});
 //console.log("inside get orders ")
 
 
-this.openModal();}
+this.openModal();
+}
 
+editOrder(event)
+{
+event.preventDefault();
+this.setState({  editButton: true});
+ 
+}
 
 
 render () { 
@@ -205,7 +245,7 @@ render () {
   </ModalHeader>
   <ModalBody>
 
-      {this.state.orderButton ?
+      {this.state.orderButton || this.state.editButton ?
    <Form horizontal>
       <h3>Store:{this.state.place}</h3>
 
@@ -317,26 +357,42 @@ render () {
     
   </ModalBody>
   <ModalFooter>
-   {this.state.orderButton ? 
-    
-    <div>
-    <Button className='btn btn-default' onClick={this.hideModal}>
-      Cancel
-    </Button>
-    <Button className='btn btn-primary' onClick={this.postDataToApi}>
-      Place Order
-    </Button>
-     </div>
-    :
-    <div>
-    
-    <Button className='btn btn-default' onClick={this.hideModal}>
-      OK
-    </Button>
+  {this.state.orderButton ?
+   
+   <div>
+   <Button className='btn btn-default' onClick={this.hideModal}>
+     Cancel
+   </Button>
+   <Button className='btn btn-primary' onClick={this.postDataToApi}>
+     Place Order
+   </Button>
     </div>
-   } 
-  </ModalFooter>
+   :
+   
+   this.state.objectId ?
+     <div>
+   <Button className='btn btn-default' onClick={this.hideModal}>
+     OK
+   </Button>
+   <Button className='btn btn-default' onClick={this.editOrder}>
+     Edit
+   </Button>
+   <Button className='btn btn-default' onClick={this.updateDataFromApi}>
+     Update Order
+   </Button>
+   <Button className='btn btn-default' onClick={this.hideModal}>
+     Delete Order
+   </Button>
 
+   </div>
+   :
+   <div>
+   <Button className='btn btn-default' onClick={this.hideModal}>
+     OK
+   </Button></div>
+ 
+  }
+ </ModalFooter>
 </Modal>
            
 <Grid>

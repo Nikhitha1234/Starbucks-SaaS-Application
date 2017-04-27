@@ -87,7 +87,7 @@ var headers = {
 //'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://localhost:8080/api/sanJose/order/' ,
+    url: 'http://54.241.1.103:8080/api/sanJose/order/' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
@@ -146,7 +146,47 @@ request(options, function (error, response, body) {
  });
 //console.log(options.url)
 
+})
+
+/retrieve all orders from the database
+.put(function(req, res) {
+
+ console.log("I am in put");
+ console.log(req.params.order_id);
+   // Set the headers
+ var headers = {
+     'User-Agent':       'Super Agent/0.0.1',
+     'Content-Type':     'application/json',
+     'Host': host
+  }
+
+ // Configure the request
+ // console.log(req.body);
+ var options = {
+     url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+     method: 'PUT',
+     headers: headers
+  }  
+
+
+ //Start the request
+ request(options, function (error, response, body) {
+     if (!error) {
+         // Print out the response body
+         // console.log(response.body);
+      //  var body = JSON.stringify(response);
+        //console.log(body);
+        res.send(body);
+
+     
+     }
+ 
 });
+//console.log(options.url)
+
+}); 
+
+
 
 
 
