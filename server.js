@@ -81,7 +81,7 @@ router.get('/', function(req, res) {
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
-    'Host': "strbksnikhita.com"  
+    'Host': "strbksdishant.com"  
 }
 //'http://34.210.7.218:8000'
 //'http://54.193.21.4:8000'
@@ -89,7 +89,7 @@ var headers = {
 var options = {
 
     //url: 'http://54.193.21.4/:8000' ,
-    url: 'http://54.241.1.103:8080/api/sanJose/order/' ,
+    url: 'http://54.67.34.127:8080/starbucks/sanfrancisco/order/' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
@@ -127,7 +127,7 @@ var headers = {
 // Configure the request
 // console.log(req.body);
 var options = {
-    url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+    url: 'http://54.67.34.127:8080/starbucks/sanfrancisco/order/'+req.params.order_id,
     method: 'GET',
     headers: headers
  }   
@@ -170,20 +170,13 @@ request(options, function (error, response, body) {
  var options = {
 
      //url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
-     url:'http://54.144.207.3:5000/api/PaloAlto/order/'+req.params.order_id,
+     url: 'http://54.67.34.127:8080/starbucks/sanfrancisco/order/'+req.params.order_id,
      method: 'PUT',
      headers: headers,
      body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
      })
   }  
 
-
-
-
-     url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
-     method: 'PUT',
-     headers: headers
-  }  
 
 
 

@@ -48,14 +48,10 @@ class Main extends Component {
                orderButton: false,
                place: '',
                email: '',
-<<<<<<< HEAD
                editButton: false,
-               dataFetched: false
-=======
+               dataFetched: false,
                editButton: false
-            
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
-           }
+            }
 
           this.openModal = this.openModal.bind(this);
           this.hideModal = this.hideModal.bind(this);
@@ -164,16 +160,13 @@ postDataToApi(event){
    .catch(err => {
    console.error(err);
    }); 
-<<<<<<< HEAD
   
  this.setState({ dataFetched: true}); 
  this.setState({orderButton: false, editButton: false });
  
-=======
 
  this.setState({orderButton: false});
  this.setState({ editButton: false });
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
 
 }
 
@@ -207,7 +200,7 @@ axios.get('http://localhost:3001/api/order/'+this.state.objectId)
 updateDataFromApi(event){
 
  //event.preventDefault();
-<<<<<<< HEAD
+
   var order = { 
                qty: this.state.qty,
                name: this.state.name,
@@ -224,22 +217,7 @@ updateDataFromApi(event){
  console.log('http://localhost:3001/api/order/'+this.state.objectId);
 axios.put('http://localhost:3001/api/order/'+this.state.objectId,order)
 
- .then(res => {
-   console.log(res.data.qty);
-  //this.setState({ data: res.data.body});
- //  this.setState({ qty: res.data.qty});
- //  this.setState({ name: res.data.name});
- // this.setState({ milk: res.data.milk});
- // this.setState({ size: res.data.size});
- // this.setState({ location: res.data.location});
- // this.setState({ place: res.data.place});
- // this.setState({dataFetched: true});      
- //   console.log ('Response from put request');
-   //console.log(this.state.qty);
-=======
- console.log("Inside put");
- console.log('http://localhost:3001/api/order/'+this.state.objectId);
-axios.put('http://localhost:3001/api/order/'+this.state.objectId)
+ 
 
  .then(res => {
    //console.log(res.data.qty);
@@ -253,25 +231,18 @@ axios.put('http://localhost:3001/api/order/'+this.state.objectId)
        
    console.log ('Response from put request');
    console.log(this.state.qty);
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
   })
   .catch(err => {
   console.error(err);
   });
-<<<<<<< HEAD
   console.log(this.state.qty);
  this.setState({orderButton: false});
  this.setState({ editButton: false });
  
-=======
-
- this.setState({orderButton: false});
- this.setState({ editButton: false });
-
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
 }
 
-getOrders(event) {
+getOrders(event) 
+{
 event.preventDefault();
 
 this.getDataFromApi();
@@ -281,21 +252,15 @@ this.setState({  place: event.target.value});
 
 this.openModal();
 
-<<<<<<< HEAD
-=======
-this.openModal();
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
 }
 
 editOrder(event)
 {
 event.preventDefault();
 this.setState({  editButton: true});
-<<<<<<< HEAD
+
 this.setState({dataFetched: false}); 
-=======
- 
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
+
 }
 
 
@@ -424,14 +389,10 @@ render () {
   </ModalBody>
   <ModalFooter>
   {this.state.orderButton ?
-<<<<<<< HEAD
+
      
    <div>
 
-=======
-   
-   <div>
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
    <Button className='btn btn-default' onClick={this.hideModal}>
      Cancel
    </Button>
@@ -441,11 +402,8 @@ render () {
     </div>
    :
    
-<<<<<<< HEAD
    this.state.objectId || this.state.dataFetched ?
-=======
-   this.state.objectId ?
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
+
      <div>
    <Button className='btn btn-default' onClick={this.hideModal}>
      OK
@@ -463,13 +421,11 @@ render () {
    </div>
    :
    <div>
-<<<<<<< HEAD
    <ProgressBar message="Order is being placed" />
-=======
->>>>>>> 0da5bf6ba36fd2b2a16577733a248ccbfa98c582
    <Button className='btn btn-default' onClick={this.hideModal}>
      OK
-   </Button></div>
+   </Button>
+   </div>
  
   }
  </ModalFooter>
