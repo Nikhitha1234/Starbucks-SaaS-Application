@@ -62,7 +62,7 @@ router.get('/', function(req, res) {
     order.size = req.body.size;
     order.location = req.body.location;
     place = req.body.place;
-   host;
+   
       console.log('Inside Post');
       console.log('The body is');
       console.log(req.body);
@@ -81,13 +81,13 @@ router.get('/', function(req, res) {
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/json',
-    'Host': host  
+    'Host': "strbksnikhita.com"  
 }
 //'http://34.210.7.218:8000'
 //'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://localhost:8080/api/sanJose/order/' ,
+    url: 'http://54.193.21.4/:8000' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
@@ -146,7 +146,51 @@ request(options, function (error, response, body) {
  });
 //console.log(options.url)
 
+})
+
+//retrieve all orders from the database
+.put(function(req, res) {
+
+ console.log("I am in put");
+ console.log(req.params.order_id);
+   // Set the headers
+ var headers = {
+     'User-Agent':       'Super Agent/0.0.1',
+     'Content-Type':     'application/json',
+     'Host': host
+  }
+
+ // Configure the request
+ // console.log(req.body);
+ var options = {
+     //url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+     url:'http://54.144.207.3:5000/api/PaloAlto/order/'+req.params.order_id,
+     method: 'PUT',
+     headers: headers,
+     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
+     })
+  }  
+
+
+
+ //Start the request
+ request(options, function (error, response, body) {
+     if (!error) {
+         // Print out the response body
+         // console.log(response.body);
+        var body = JSON.stringify(response);
+        //console.log(body);
+        res.send(body);
+
+     
+     }
+ 
 });
+//console.log(options.url)
+
+}); 
+
+
 
 
 
