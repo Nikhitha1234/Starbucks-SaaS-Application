@@ -12,6 +12,8 @@ var Order = require('./model/orders');
 
 //and create our instances
 var app = express();
+var place ;
+var host ;
 var router = express.Router();
 //set our port to either a predetermined port number if you have set 
 //it up, or 3001
@@ -44,38 +46,8 @@ router.get('/', function(req, res) {
 });
 
 //adding the /order route to our /api router
-router.route('/order')
 
-//retrieve all orders from the database
-//  .get(function(req, res) {
-  
-//     // Set the headers
-// var headers = {
-//     'User-Agent':       'Super Agent/0.0.1',
-//     'Content-Type':     'application/json',
-//     'Host': 'strbks.com'  
-// }
-
-// // Configure the request
-// var options = {
-//     url: 'http://54.193.21.4:8000',
-//     method: 'GET',
-//     headers: headers
-//  }   
-
-
-// Start the request
-// request(options, function (error, response, body) {
-//     if (!error) {
-//         // Print out the response body
-//         // console.log(response.body);
-//        var body = JSON.stringify(response);
-//        console.log(body);
-//        res.send(body);
-//     }
-   
-// })
-
+ router.route('/order')
 
  
 
@@ -89,9 +61,11 @@ router.route('/order')
     order.milk = req.body.milk;
     order.size = req.body.size;
     order.location = req.body.location;
-    var place = req.body.place;
-    var host;
-
+    place = req.body.place;
+   host;
+      console.log('Inside Post');
+      console.log('The body is');
+      console.log(req.body);
     switch(place){
         case 'SanJose': host = "strbks.com";
         break; 
@@ -113,7 +87,7 @@ var headers = {
 //'http://54.193.21.4:8000'
 // Configure the request
 var options = {
-    url: 'http://54.193.21.4:8000' ,
+    url: 'http://localhost:8080/api/sanJose/order/' ,
     method: 'POST',
     headers: headers,
     body: JSON.stringify({'qty':req.body.qty ,'name': req.body.name ,'milk': req.body.milk, 'size': req.body.size ,'location': req.body.location
@@ -123,10 +97,10 @@ var options = {
 // Start the request
 request(options, function (error, response, body) {
     if (!error) {
-        // Print out the response body
+       
         // console.log(response.body);
        var body = JSON.stringify(response);
-       console.log(body);
+        console.log('The data is sent');
        res.send(body);
     }
    
@@ -134,6 +108,45 @@ request(options, function (error, response, body) {
 
     
  });
+
+ router.route('/order/:order_id')
+  
+//retrieve all orders from the database
+ .get(function(req, res) {
+  console.log("I am in get");
+  console.log(req.params.order_id);
+    // Set the headers
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/json',
+    'Host': 'strbks.com'  
+ }
+
+// Configure the request
+// console.log(req.body);
+var options = {
+    url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+    method: 'GET',
+    headers: headers
+ }   
+
+
+//Start the request
+request(options, function (error, response, body) {
+    if (!error) {
+        // Print out the response body
+        // console.log(response.body);
+     //  var body = JSON.stringify(response);
+       //console.log(body);
+       res.send(body);
+
+    
+    }
+   
+ });
+//console.log(options.url)
+
+});
 
 
 

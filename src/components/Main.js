@@ -44,7 +44,7 @@ class Main extends Component {
                milk: 'FullCream',
                size: 'tall',
                location: 'ForHere',
-               data: '',
+               objectId: '',
                orderButton: false,
                place: '',
                email: ''
@@ -61,6 +61,7 @@ class Main extends Component {
           this.setLocation = this.setLocation.bind(this);
           this.setEmailAddress = this.setEmailAddress.bind(this);
           this.getOrders = this.getOrders.bind(this);  
+          this.getDataFromApi = this.getDataFromApi.bind(this);
       }
 
  
@@ -143,8 +144,9 @@ postDataToApi(event){
 
  axios.post('http://localhost:3001/api/order',order)
   .then(res => {
-  this.setState({ data: res.data.body});
-   console.log(res.data.body);
+  this.setState({ objectId: res.data.body});
+   console.log('control back to the main.');
+   console.log(this.state.objectId);
    })
    .catch(err => {
    console.error(err);
@@ -153,25 +155,43 @@ postDataToApi(event){
   this.hideModal();  
 
 }
+getDataFromApi(event){
 
-getOrders(event) {
-event.preventDefault();
-this.setState({  orderButton: false});
-this.setState({  place: event.target.value});
-this.openModal();
-
-axios.get('http://localhost:3001/api/order')
+  //event.preventDefault();
+  console.log("Inside get");
+  console.log('http://localhost:3001/api/order/'+this.state.objectId);
+axios.get('http://localhost:3001/api/order/'+this.state.objectId)
 
   .then(res => {
-  this.setState({ data: res.data.body});
-
-   console.log(res.data.body);
+    //console.log(res.data.qty);
+   //this.setState({ data: res.data.body});
+   this.setState({ qty: res.data.qty});
+   this.setState({ name: res.data.name});
+  this.setState({ milk: res.data.milk});
+  this.setState({ size: res.data.size});
+  this.setState({ location: res.data.location});
+  this.setState({ place: res.data.place});
+         
+    console.log ('Response from get request');
+    console.log(this.state.qty);
    })
    .catch(err => {
    console.error(err);
    }); 
 
 }
+
+getOrders(event) {
+event.preventDefault();
+this.getDataFromApi();
+this.setState({  orderButton: false});
+this.setState({  place: event.target.value});
+//console.log("inside get orders ")
+
+
+this.openModal();}
+
+
 
 render () { 
     return (
@@ -245,7 +265,7 @@ render () {
 </Form>
   :
     <Panel header="Order Details" bsStyle="primary">
-      { !(this.state.data) ? <div>You have no Order right now</div>
+      { !(this.state.objectId) ? <div>You have no Order right now</div>
        :
        <div>
          <ListGroupItem>
