@@ -50,7 +50,8 @@ class Main extends Component {
                email: '',
                editButton: false,
                dataFetched: false,
-               editButton: false
+               editButton: false,
+               price: 5
             }
 
           this.openModal = this.openModal.bind(this);
@@ -152,10 +153,10 @@ postDataToApi(event){
   .then(res => {
 
    this.setState({ objectId: res.data.body});
-   
+   this.state.objectId = this.state.objectId.replace(/"/g,'');
    console.log('posting data');
    console.log(this.state.objectId);
-
+     this.getDataFromApi();
    })
    .catch(err => {
    console.error(err);
@@ -200,7 +201,7 @@ axios.get('http://localhost:3001/api/order/'+this.state.objectId)
 updateDataFromApi(event){
 
  //event.preventDefault();
-
+  
   var order = { 
                qty: this.state.qty,
                name: this.state.name,
@@ -341,8 +342,8 @@ render () {
        <div>
          <ListGroupItem>
          <Row className="show-grid">
-          <Col sm={6} md={3}>Item</Col>
           <Col sm={6} md={3}>Description</Col>
+          <Col sm={6} md={3}>Item</Col>
           <Col sm={6} md={3}>location</Col>
           <Col sm={6} md={3}>Price</Col>
         </Row>
@@ -360,7 +361,7 @@ render () {
           <Col sm={6} md={3}>Subtotal</Col>
           <Col sm={6} md={3}></Col>
           <Col sm={6} md={3}></Col>
-          <Col sm={6} md={3}>$5</Col>
+          <Col sm={6} md={3}>{this.state.qty*this.state.price}</Col>
         </Row>
       </ListGroupItem>
       <ListGroupItem>
@@ -368,7 +369,7 @@ render () {
           <Col sm={6} md={3}>Tax</Col>
           <Col sm={6} md={3}></Col>
           <Col sm={6} md={3}></Col>
-          <Col sm={6} md={3}>$0.47</Col>
+          <Col sm={6} md={3}>{this.state.qty*(0.47)}</Col>
         </Row>
       </ListGroupItem>
        <ListGroupItem>
@@ -376,7 +377,7 @@ render () {
           <Col sm={6} md={3}>Total</Col>
           <Col sm={6} md={3}></Col>
           <Col sm={6} md={3}></Col>
-          <Col sm={6} md={3}>$5.47</Col>
+          <Col sm={6} md={3}>{this.state.qty*this.state.price + this.state.qty*(0.47)}</Col>
         </Row>
       </ListGroupItem>
        </div>

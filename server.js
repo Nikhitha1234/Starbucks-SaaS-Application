@@ -186,7 +186,7 @@ request(options, function (error, response, body) {
          // Print out the response body
          // console.log(response.body);
 
-        var body = JSON.stringify(response);
+        //var body = JSON.stringify(response);
 
       //  var body = JSON.stringify(response);
 
