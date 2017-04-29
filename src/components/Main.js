@@ -84,9 +84,31 @@ hideModal = () => {
     isOpen: false,
     
   });
-  this.setState({  place: ''});
-  this.setState({  orderButton: false});
-
+  if(!(this.state.deletebutton))
+  {
+    this.setState({  place: ''});
+    this.setState({  orderButton: false});
+  }
+  else
+  {
+    this.setState({
+               isOpen: false,
+               qty: '1',
+               name: 'RegularCofee',
+               milk: 'FullCream',
+               size: 'tall',
+               location: 'ForHere',
+               objectId: '',
+               orderButton: false,
+               place: '',
+               email: '',
+               editButton: false,
+               dataFetched: false,
+               editButton: false,
+               price: 5,
+               deletebutton : false
+            });
+  }
 }
 
 setQuantity(event){
@@ -505,7 +527,6 @@ render () {
     <Col xs={6} md={4}>
       <Thumbnail src="https://s3-us-west-1.amazonaws.com/cmpe281starbuckscarouselimages/image3.JPG" alt="242x200">         
         <h3>Order At San jose</h3>
-        <p>10% Disctount for SJSU students</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanJose" >Place  Order</Button>&nbsp;
           
@@ -515,7 +536,6 @@ render () {
     <Col xs={6} md={4}>
       <Thumbnail src="https://s3-us-west-1.amazonaws.com/cmpe281starbuckscarouselimages/image1.jpg" alt="242x200">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         <h3>Order At San Francisco</h3>
-        <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Place  Order</Button>&nbsp;
           
@@ -525,7 +545,6 @@ render () {
     <Col xs={6} md={4}>
       <Thumbnail src="https://s3-us-west-1.amazonaws.com/cmpe281starbuckscarouselimages/image2.JPG" alt="242x200">                                                                                                                                                                                                                                                                                                                                                
         <h3>Order At Palo Alto</h3>
-        <p>Description</p>
         <p>
           <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Place  Order</Button>&nbsp;
           
