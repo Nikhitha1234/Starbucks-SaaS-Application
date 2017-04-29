@@ -198,8 +198,54 @@ request(options, function (error, response, body) {
  
 });
 //console.log(options.url)
+})
+
+
+
+.delete(function(req, res) {
+
+ console.log("I am in delete");
+ console.log(req.params.order_id);
+   // Set the headers
+ var headers = {
+     'User-Agent':       'Super Agent/0.0.1',
+     'Content-Type':     'application/json',
+     'Host': host
+  }
+
+ // Configure the request
+ // console.log(req.body);
+ var options = {
+
+     //url: 'http://54.193.21.4:8000/id/'+req.params.order_id,
+     url: 'http://54.67.34.127:8080/starbucks/sanfrancisco/order/'+req.params.order_id,
+     method: 'DELETE',
+     headers: headers,
+     // body: JSON.stringify({})
+  }  
+
+
+ //Start the request
+ request(options, function (error, response, body) {
+     if (!error) {
+         // Print out the response body
+         // console.log(response.body);
+
+        //var body = JSON.stringify(response);
+
+      //  var body = JSON.stringify(response);
+
+        console.log("data deleted");
+        // res.send(body);
+
+     
+     }
+ 
+});
+//console.log(options.url)
 
 }); 
+
 
 
 
