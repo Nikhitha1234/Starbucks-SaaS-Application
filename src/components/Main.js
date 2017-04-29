@@ -507,8 +507,8 @@ render () {
         <h3>Order At San jose</h3>
         <p>10% Disctount for SJSU students</p>
         <p>
-          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanJose" >Order</Button>&nbsp;
-          <Button bsStyle="info" onClick={this.getOrders} value="SanJose" >Order Details</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanJose" >Place  Order</Button>&nbsp;
+          
         </p>
       </Thumbnail>
     </Col>
@@ -517,8 +517,8 @@ render () {
         <h3>Order At San Francisco</h3>
         <p>Description</p>
         <p>
-          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Order</Button>&nbsp;
-          <Button bsStyle="info" onClick={this.getOrders} value="San Francisco" >Order Details</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="SanFrancisco" >Place  Order</Button>&nbsp;
+          
         </p>
       </Thumbnail>
     </Col>
@@ -527,8 +527,8 @@ render () {
         <h3>Order At Palo Alto</h3>
         <p>Description</p>
         <p>
-          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Order</Button>&nbsp;
-          <Button bsStyle="info" onClick={this.getOrders} value="Palo Alto" >Order Details</Button>&nbsp;
+          <Button bsStyle="primary" onClick={this.setLocation} id="btn" value="PaloAlto" >Place  Order</Button>&nbsp;
+          
         </p>
       </Thumbnail>
     </Col>
