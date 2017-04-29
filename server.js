@@ -10,7 +10,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xhr = new XMLHttpRequest();
 var Order = require('./model/orders');
 var helper = require('sendgrid').mail;
-var sg = require('sendgrid')('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');
+var sg = require('sendgrid')('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');
 
 //and create our instances
 var app = express();
@@ -66,10 +66,10 @@ router.get('/', function(req, res) {
     place = req.body.place;
    emailId = req.body.email; 
    //this part is for sending the email.
-
-   var from_email = new helper.Email('AMAZONIANS@CMPE281Hackathon.com');
+  
+   var from_email = new helper.Email('starbucks@CMPE281Hackathon.com');
 var to_email = new helper.Email(emailId);
-var subject = 'Order Receipt';
+var subject = 'Order Receipt for your order at Starbucks';
 var content = new helper.Content('text/plain', 
   "Quanity: "+order.qty+" "
   +"  Item: "+order.name+" "
@@ -84,7 +84,7 @@ var requestSendgrid = sg.emptyRequest({
   body: mail.toJSON(),
 });
 
-
+  
 sg.API(requestSendgrid, function(err, response) {
   console.log(response.statusCode);
   console.log(response.body);
