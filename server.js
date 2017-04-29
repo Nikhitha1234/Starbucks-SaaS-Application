@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xhr = new XMLHttpRequest();
 var Order = require('./model/orders');
+var helper = require('sendgrid').mail;
+var sg = require('sendgrid')('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');
 
 //and create our instances
 var app = express();
@@ -19,7 +21,7 @@ var router = express.Router();
 //it up, or 3001
 var port = process.env.API_PORT || 3001;
 
-
+var emailId ;
 
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body
@@ -62,7 +64,37 @@ router.get('/', function(req, res) {
     order.size = req.body.size;
     order.location = req.body.location;
     place = req.body.place;
-   
+   emailId = req.body.email; 
+   //this part is for sending the email.
+
+   var from_email = new helper.Email('AMAZONIANS@CMPE281Hackathon.com');
+var to_email = new helper.Email(emailId);
+var subject = 'Order Receipt';
+var content = new helper.Content('text/plain', 
+  "Quanity: "+order.qty+" "
+  +"  Item: "+order.name+" "
+  +"  Milk: "+order.milk+" "
+  +"  Size: "+order.size 
+  +"  Location: "+order.location);
+var mail = new helper.Mail(from_email, subject, to_email, content);
+
+var requestSendgrid = sg.emptyRequest({
+  method: 'POST',
+  path: '/v3/mail/send',
+  body: mail.toJSON(),
+});
+
+
+sg.API(requestSendgrid, function(err, response) {
+  console.log(response.statusCode);
+  console.log(response.body);
+  console.log(response.headers);
+});
+
+
+
+
+
       console.log('Inside Post');
       console.log('The body is');
       console.log(req.body);
