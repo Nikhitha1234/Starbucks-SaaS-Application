@@ -51,7 +51,8 @@ class Main extends Component {
                editButton: false,
                dataFetched: false,
                editButton: false,
-               price: 5
+               price: 5,
+               deletebutton : false
             }
 
           this.openModal = this.openModal.bind(this);
@@ -68,6 +69,7 @@ class Main extends Component {
           this.getDataFromApi = this.getDataFromApi.bind(this);
           this.updateDataFromApi = this.updateDataFromApi.bind(this);
           this.editOrder = this.editOrder.bind(this);
+          this.deleteDataFromApi = this.deleteDataFromApi.bind(this);
       }
 
  
@@ -242,6 +244,57 @@ axios.put('http://localhost:3001/api/order/'+this.state.objectId,order)
  
 }
 
+deleteDataFromApi(event){
+
+ //event.preventDefault();
+  
+  this.setState({deletebutton: true});
+ console.log("Inside delete");
+ console.log(this.state.deletebutton);
+
+ console.log('http://localhost:3001/api/order/'+this.state.objectId);
+axios.delete('http://localhost:3001/api/order/'+this.state.objectId)
+
+ .then(res => {
+   // this.setState({deletebutton: true});
+   //console.log(res.data.qty);
+  //this.setState({ data: res.data.body});
+ //  this.setState({ qty: res.data.qty});
+ //  this.setState({ name: res.data.name});
+ // this.setState({ milk: res.data.milk});
+ // this.setState({ size: res.data.size});
+ // this.setState({ location: res.data.location});
+ // this.setState({ place: res.data.place});
+       
+   console.log ('Response from delete');
+   // console.log(this.state.qty);
+  })
+  .catch(err => {
+  console.error(err);
+  });
+  // console.log(this.state.qty);
+ // this.setState({orderButton: false});
+ // this.setState({ editButton: false });
+ // this.state = {
+ //               isOpen: false,
+ //               qty: '1',
+ //               name: 'RegularCofee',
+ //               milk: 'FullCream',
+ //               size: 'tall',
+ //               location: 'ForHere',
+ //               objectId: '',
+ //               orderButton: false,
+ //               place: '',
+ //               email: '',
+ //               editButton: false,
+ //               dataFetched: false,
+ //               editButton: false,
+ //               price: 5
+ //            }
+ 
+ console.log(this.state.deletebutton);
+}
+
 getOrders(event) 
 {
 event.preventDefault();
@@ -336,9 +389,14 @@ render () {
     
 </Form>
   :
+  
     <Panel header="Order Details" bsStyle="primary">
       { !(this.state.objectId) ? <div>You have no Order right now</div>
        :
+       
+       (this.state.deletebutton)?
+        <div> Successfully Deleted </div>
+        :
        <div>
          <ListGroupItem>
          <Row className="show-grid">
@@ -382,14 +440,24 @@ render () {
       </ListGroupItem>
        </div>
 
-      }
-  
+      
+  }
     </Panel>
   }
     
   </ModalBody>
   <ModalFooter>
-  {this.state.orderButton ?
+  {
+    this.state.deletebutton ?
+    
+    <div>
+    <Button className='btn btn-default' onClick={this.hideModal}>
+     OK
+   </Button>
+    
+    </div>
+    :
+    this.state.orderButton ?
 
      
    <div>
@@ -415,7 +483,7 @@ render () {
    <Button className='btn btn-default' onClick={this.updateDataFromApi}>
      Update Order
    </Button>
-   <Button className='btn btn-default' onClick={this.hideModal}>
+   <Button className='btn btn-default' onClick={this.deleteDataFromApi}>
      Delete Order
    </Button>
 
