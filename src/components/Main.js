@@ -211,7 +211,7 @@ axios.get('http://localhost:3001/api/order/'+this.state.objectId)
   this.setState({ milk: res.data.milk});
   this.setState({ size: res.data.size});
   this.setState({ location: res.data.location});
-  this.setState({ place: res.data.place});
+  //this.setState({ place: res.data.place});
          
     console.log ('Response from get request');
     console.log(this.state.qty);
@@ -239,7 +239,7 @@ updateDataFromApi(event){
  console.log("Inside put");
 
 
- console.log('http://localhost:3001/api/order/'+this.state.objectId);
+console.log('http://localhost:3001/api/order/'+this.state.objectId);
 axios.put('http://localhost:3001/api/order/'+this.state.objectId,order)
 
  
@@ -252,7 +252,7 @@ axios.put('http://localhost:3001/api/order/'+this.state.objectId,order)
  this.setState({ milk: res.data.milk});
  this.setState({ size: res.data.size});
  this.setState({ location: res.data.location});
- this.setState({ place: res.data.place});
+ //this.setState({ place: res.data.place});
        
    console.log ('Response from put request');
    console.log(this.state.qty);
