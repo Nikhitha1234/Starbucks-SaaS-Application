@@ -10,7 +10,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xhr = new XMLHttpRequest();
 var Order = require('./model/orders');
 var helper = require('sendgrid').mail;
-var sg = require('sendgrid')('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');
+//var sg = require('sendgrid')('');
 
 //and create our instances
 var app = express();
@@ -78,18 +78,18 @@ var content = new helper.Content('text/plain',
   +"  Location: "+order.location);
 var mail = new helper.Mail(from_email, subject, to_email, content);
 
-var requestSendgrid = sg.emptyRequest({
-  method: 'POST',
-  path: '/v3/mail/send',
-  body: mail.toJSON(),
-});
+// var requestSendgrid = sg.emptyRequest({
+//   method: 'POST',
+//   path: '/v3/mail/send',
+//   body: mail.toJSON(),
+// });
 
   
-sg.API(requestSendgrid, function(err, response) {
-  console.log(response.statusCode);
-  console.log(response.body);
-  console.log(response.headers);
-});
+// sg.API(requestSendgrid, function(err, response) {
+//   console.log(response.statusCode);
+//   console.log(response.body);
+//   console.log(response.headers);
+// });
 
 
 
