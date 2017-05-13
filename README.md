@@ -5,7 +5,7 @@
 
 <img src="http://i66.tinypic.com/9hoqb4.png" height="450" width="900">
 
-#Architecture Mockup of the Project
+#Architecture of the Starbucks Application
 
 <img src="http://i66.tinypic.com/jjqt94.png" height="450" width="900">
 
