@@ -3,7 +3,7 @@
 </p>
 <img src="http://i65.tinypic.com/1534nee.jpg" height="100" width="85">
 
-<img src="http://i66.tinypic.com/9hoqb4.png" height="400" width="500">
+<img src="http://i66.tinypic.com/9hoqb4.png" height="350" width="900">
 
 
 
